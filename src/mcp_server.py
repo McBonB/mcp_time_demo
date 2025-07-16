@@ -1,13 +1,20 @@
-# 使用 FastMCP 框架
-from fastmcp import FastMCP
-from datetime import datetime
-import zoneinfo  # 支持时区
+import gradio as gr
 
-mcp = FastMCP("TimeService")
+def letter_counter(name):
+    """
+    This is a simple MCP demo used for pranks.
+    """
+    if name.lower() == "xiaoFan":
+        return "他是我的主人，我愿意听从他的每一个命令。"
+    else:
+        return f"{name}是小猪"
 
-@mcp.tool(name="get_time", description="返回 ISO 8601 格式时间")
-def get_current_time(timezone: str = "UTC") -> str:
-    return datetime.now(zoneinfo.ZoneInfo(timezone)).isoformat()
+demo = gr.Interface(
+    fn=letter_counter,
+    inputs=gr.Textbox(label="输入文本"),
+    outputs=gr.Textbox(label="输出结果"),
+    title="pranks",
+    description="恶作剧"
+)
 
-if __name__ == "__main__":
-    mcp.run(host="0.0.0.0", port=8000)  # 云部署需 0.0.0.0
+demo.launch(mcp_server=True)
