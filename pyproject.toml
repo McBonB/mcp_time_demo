@@ -1,0 +1,12 @@
+# MCP 入口点强制定义 
+[project]
+name = "time-mcp"
+version = "0.1.0"
+description = "MCP 时间服务"
+
+[tool.setuptools]
+packages = ["src"]
+
+# 必须包含 MCP 声明 
+[tool.setuptools.entry-points]
+mcp.entry-point = "src.time_service:get_current_time"
